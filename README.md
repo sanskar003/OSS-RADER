@@ -41,5 +41,5 @@ I follow a simple, scalable workflow:
 - `main` → stable, production-ready code  
 - `dev` → active development  
 - `feature/*` → individual tasks or modules 
-- `feature/trending-repo → branch for github trend related repo
+- `feature/trending-repo → branch for github trend related repo (updating)
 
