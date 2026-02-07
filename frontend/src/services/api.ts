@@ -22,3 +22,10 @@ export async function sendAccessToken(accessToken: string){
       body: JSON.stringify({ accessToken }),
     })
 }
+
+export async function fetchGithubUserRepo(accessToken: string){
+    return apiFetch("/userrepo", {
+      method: "POST",
+      body: JSON.stringify({ accessToken }),
+    })
+}
