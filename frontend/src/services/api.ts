@@ -15,3 +15,10 @@ export async function apiFetch(path: string, options: RequestInit = {}) {
 
   return response.json();
 }
+
+export async function sendAccessToken(accessToken: string){
+    return apiFetch("/profile", {
+      method: "POST",
+      body: JSON.stringify({ accessToken }),
+    })
+}
