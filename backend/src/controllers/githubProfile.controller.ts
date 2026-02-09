@@ -9,14 +9,10 @@ export const githubProfileController = async (
 ) => {
   const { accessToken } = req.body;
 
-  if (!accessToken) {
-    return next(new AppErrors("Access token not found", 400));
-  }
-
   try {
     const profile = await getGithubProfile(accessToken);
     return res.json(profile);
   } catch (error) {
-    return next(new AppErrors("Github request failed", 500));
+    return next(new AppErrors("Failed to fetch github user profile", 500));
   }
 };
