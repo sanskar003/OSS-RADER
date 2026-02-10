@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import trendingRoute from "./routes/trendingRepo.routes"
 import githubProfileRoute from "./routes/githubProfile.routes"
 import githubUserRepoRoute from "./routes/githubUserRepo.routes"
+import githubTopLanguageRoute from "./routes/githubTopLanguage.routes"
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/project", trendingRoute)
 app.use("/api/project", githubProfileRoute)
 app.use("/api/project", githubUserRepoRoute)
+app.use("/api/project", githubTopLanguageRoute)
 
 // ERROR HANDLER MIDDLEWARE
 app.use(errorHandler)
