@@ -29,3 +29,10 @@ export async function fetchGithubUserRepo(accessToken: string){
       body: JSON.stringify({ accessToken }),
     })
 }
+
+export async function fetchGithubTopLanguage(accessToken: string){
+  return apiFetch("/top-languages", {
+    method: "POST",
+    body: JSON.stringify({ accessToken }),
+  })
+}
