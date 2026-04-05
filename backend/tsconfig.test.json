@@ -1,14 +1,13 @@
+// tsconfig.test.json
 {
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
     "moduleResolution": "node",
-    "rootDir": "./src",
-    "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
-    "types": ["node"],
+    "types": ["node", "jest"]
   },
-  "include": ["src"],
+  "include": ["**/*.test.ts", "**/*.spec.ts", "__tests__/**/*.ts", "jest.setup.ts"]
 }
