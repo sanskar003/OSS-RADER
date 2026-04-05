@@ -1,13 +1,14 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
-  githubId: string;
-  username: string;
+  githubId: number;
+  login: string;
   name?: string;
   email?: string;
   avatarUrl?: string;
 
-  accessToken: string;
+  cipher: string;
+  nonce: string;
   refreshToken?: string;
 
   lastSyncedAt?: Date;
@@ -18,23 +19,15 @@ export interface IUser extends Document {
 
 const UserSchema = new Schema<IUser>(
   {
-    githubId: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
+    githubId: { type: Number, required: true, unique: true },
+    login: { type: String, required: true },
+
     name: String,
     email: String,
     avatarUrl: String,
 
-    accessToken: {
-      type: String,
-      required: true,
-    },
+    cipher: { type: String, required: true },
+    nonce: { type: String, required: true },
     refreshToken: String,
 
     lastSyncedAt: Date,

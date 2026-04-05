@@ -1,6 +1,14 @@
 import axios from "axios";
+import { User } from "../models/User.model";
+import { decryptToken } from "../config/crypto";
 
-export const getGithubUserRepo = async (accessToken: string) => {
+export const getGithubUserRepo = async (githubId: number) => {
+
+  const user = await User.findOne({ githubId });
+  if(!user) throw new Error("User not found");
+
+  const accessToken = await decryptToken(user.cipher, user.nonce);
+
   const response = await axios.get("https://api.github.com/user/repos", {
     headers: {
       Authorization: `Bearer ${accessToken}`,

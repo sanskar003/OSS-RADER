@@ -1,0 +1,14 @@
+### Test GitHub Login (skip encrypt)
+POST http://localhost:5000/api/auth/login/github
+Content-Type: application/json
+
+{
+  "accessToken": "",
+  "profile": {
+    "id": 12345,
+    "login": "yourgithubusername",
+    "name": "Your Name",
+    "email": "you@example.com",
+    "avatar_url": "https://avatars.githubusercontent.com/u/12345"
+  },
+}
