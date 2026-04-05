@@ -7,10 +7,10 @@ export const githubProfileController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { accessToken } = req.body;
+  const { githubId } = req.body;
 
   try {
-    const profile = await getGithubProfile(accessToken);
+    const profile = await getGithubProfile(githubId);
     return res.json(profile);
   } catch (error) {
     return next(new AppErrors("Failed to fetch github user profile", 500));

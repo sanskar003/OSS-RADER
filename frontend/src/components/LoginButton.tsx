@@ -1,14 +1,14 @@
-"use client";
+  "use client";
 
-import { signIn } from "next-auth/react";
+  import { signIn } from "next-auth/react";
 
-export default function LoginButton() {
-  return (
-    <button
-      onClick={() => signIn("github")}
-      className="px-4 py-2 bg-black text-white rounded-lg"
-    >
-      Login with GitHub
-    </button>
-  );
-}
+  export default function LoginButton() {
+    return (
+      <button
+        onClick={() => signIn("github")}
+        className="px-4 py-2 bg-black text-white rounded-lg"
+      >
+        Login with GitHub
+      </button>
+    );
+  }
