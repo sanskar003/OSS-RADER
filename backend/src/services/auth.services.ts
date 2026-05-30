@@ -13,7 +13,7 @@ interface GithubLoginPayload {
   };
 }
 
-export async function handleGithubLogin({ accessToken, profile }: GithubLoginPayload) {
+export async function handleGithubAuth({ accessToken, profile }: GithubLoginPayload) {
   try {
     if (!accessToken) throw new Error("Access token is required");
     if (!profile?.id || !profile?.login) throw new Error("Profile id/login is required");

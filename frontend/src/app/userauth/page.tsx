@@ -2,19 +2,12 @@
 
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { createOrUpdateUser } from "@/services/api";
 
 export default function TestPage() {
   const { data: session } = useSession();
   const [user, setUser] = useState<any>(null);
 
-  useEffect(() => {
-    if (session?.accessToken) {
-      createOrUpdateUser(session)
-        .then((user) => setUser(user))
-        .catch((err) => console.error(err));
-    }
-  }, [session]);
+
 
   return (
     <div>

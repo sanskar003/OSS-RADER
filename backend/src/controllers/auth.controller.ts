@@ -1,23 +1,29 @@
 import { Request, Response, NextFunction } from "express";
-import { handleGithubLogin } from "../services/auth.services";
 import { AppErrors } from "../utils/AppErrors";
 
-export const githubLoginController = async (
+export const githubAuthController = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { accessToken, profile } = req.body;
-    console.log("Incoming body:", req.body); 
+    const clientId = process.env.GITHUB_CLIENT_ID;
+    if (!clientId) {
+      return res.status(500).json({
+        success: false,
+        message: "GitHub Client ID missing",
+      });
+    }
 
-    const user = await handleGithubLogin({ accessToken, profile });
-    res.status(200).json({
-      success: true,
-      message: "Login successful",
-      user,
-    });
+    const githubUrl =
+      `https://github.com/login/oauth/authorize` +
+      `?client_id=${clientId}` +
+      `&scope=read:user user:email`;
+
+    return res.redirect(githubUrl);
   } catch (error: any) {
-    return next(new AppErrors(error.message || "Login or registraction failed", 500));
+    return next(
+      new AppErrors(error.message || "Redirecting falied", 304),
+    );
   }
 };
