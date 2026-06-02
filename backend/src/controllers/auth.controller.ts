@@ -7,7 +7,7 @@ export const githubAuthController = async (
   next: NextFunction,
 ) => {
   try {
-    const clientId = process.env.GITHUB_CLIENT_ID;
+    const clientId = process.env.BACK_GITHUB_CLIENT_ID;
     if (!clientId) {
       return res.status(500).json({
         success: false,

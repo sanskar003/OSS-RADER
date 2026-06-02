@@ -21,12 +21,12 @@ export const githubCallbackController = async (
     //SET COOKIES 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // true in production (HTTPS)
-      sameSite: "lax",
+      secure: true, // true in production (HTTPS)
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    return res.redirect("http://localhost:3000/dashboard")
+    return res.redirect("https://glorious-space-engine-g4r7p5xvwwv52p79w-3000.app.github.dev/dashboard")
   } catch (error: any) {
     return next(
       new AppErrors(error.message || "Redirecting falied", 500),

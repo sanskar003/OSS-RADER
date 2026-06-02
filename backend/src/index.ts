@@ -16,7 +16,7 @@ const app = express();
 connectDb()
 
 app.use(express.json())
-app.use(cors({origin: "http://localhost:3000", credentials: true }))
+app.use(cors({origin: "https://glorious-space-engine-g4r7p5xvwwv52p79w-3000.app.github.dev", credentials: true }))
 
 app.get("/", (req: Request, res: Response) => {
   res.send("OSS Rader Backend Running 🚀");

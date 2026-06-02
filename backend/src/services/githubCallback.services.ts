@@ -12,8 +12,8 @@ export const handleGithubCallback = async (code: string) => {
     const tokenResponse = await axios.post(
       "https://github.com/login/oauth/access_token",
       {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        client_id: process.env.BACK_GITHUB_CLIENT_ID,
+        client_secret: process.env.BACK_GITHUB_CLIENT_SECRET,
         code,
       },
       {
@@ -71,7 +71,7 @@ export const handleGithubCallback = async (code: string) => {
     })
 
     //CREATE JWT TOKEN
-    const token = generateToken(user.id.toString())
+    const token = generateToken(user._id.toString())
 
     return { user, token };
   } catch (error) {

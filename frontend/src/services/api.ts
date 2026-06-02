@@ -19,16 +19,16 @@ export async function apiFetch(path: string, options: RequestInit = {}) {
 
 
 
-export async function fetchGithubUserRepo(accessToken: string){
-    return apiFetch("/userrepo", {
-      method: "POST",
-      body: JSON.stringify({ accessToken }),
-    })
-}
+// export async function fetchGithubUserRepo(accessToken: string){
+//     return apiFetch("/userrepo", {
+//       method: "POST",
+//       body: JSON.stringify({ accessToken }),
+//     })
+// }
 
-export async function fetchGithubTopLanguage(accessToken: string){
-  return apiFetch("/top-languages", {
-    method: "POST",
-    body: JSON.stringify({ accessToken }),
-  })
-}
+// export async function fetchGithubTopLanguage(accessToken: string){
+//   return apiFetch("/top-languages", {
+//     method: "POST",
+//     body: JSON.stringify({ accessToken }),
+//   })
+// }
