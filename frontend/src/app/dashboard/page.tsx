@@ -18,7 +18,7 @@ export default function Dashboard() {
     const fetchMe = async () => {
       try {
         const res = await fetch(
-          "https://glorious-space-engine-g4r7p5xvwwv52p79w-5000.app.github.dev/api/auth/me",
+          "https://stunning-sniffle-x5pv49rgq765c6w56-5000.app.github.dev/api/auth/me",
           {
             credentials: "include", // IMPORTANT (cookie auth)
           }

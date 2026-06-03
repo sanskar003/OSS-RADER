@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser"
 import trendingRoute from "./routes/trendingRepo.routes"
 import githubProfileRoute from "./routes/githubProfile.routes"
 import githubUserRepoRoute from "./routes/githubUserRepo.routes"
@@ -15,8 +16,9 @@ const app = express();
 //CONNECTING TO DB
 connectDb()
 
+app.use(cookieParser())
 app.use(express.json())
-app.use(cors({origin: "https://glorious-space-engine-g4r7p5xvwwv52p79w-3000.app.github.dev", credentials: true }))
+app.use(cors({origin: "https://stunning-sniffle-x5pv49rgq765c6w56-3000.app.github.dev", credentials: true }))
 
 app.get("/", (req: Request, res: Response) => {
   res.send("OSS Rader Backend Running 🚀");

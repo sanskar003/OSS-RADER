@@ -22,11 +22,11 @@ export const githubCallbackController = async (
     res.cookie("token", token, {
       httpOnly: true,
       secure: true, // true in production (HTTPS)
-      sameSite: "none",
+      sameSite: "none", 
       maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
-    return res.redirect("https://glorious-space-engine-g4r7p5xvwwv52p79w-3000.app.github.dev/dashboard")
+    return res.redirect("https://stunning-sniffle-x5pv49rgq765c6w56-3000.app.github.dev/dashboard")
   } catch (error: any) {
     return next(
       new AppErrors(error.message || "Redirecting falied", 500),
