@@ -8,10 +8,10 @@ export interface TopLanguage {
 }
 
 export const getGithubTopLanguage = async (
-  githubId: number,
+  userId: string,
 ): Promise<TopLanguage[]> => {
 
-  const user = await User.findOne({ githubId });
+  const user = await User.findById(userId);
   if (!user) throw new Error("User not found");
 
   const accessToken = await decryptToken(user.cipher, user.nonce);

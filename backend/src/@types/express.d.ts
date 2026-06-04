@@ -1,9 +1,11 @@
-import "express";
+import { JwtPayLoad } from "../middleware/validateJwt";
 
-declare module "express" {
-  export interface Request {
-    user?: {
-      userId: string;
-    };
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayLoad;
+    }
   }
 }
+
+export {};

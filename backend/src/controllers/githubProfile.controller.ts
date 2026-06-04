@@ -7,11 +7,21 @@ export const githubProfileController = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const { githubId } = req.body;
+
+  if (!req.user?.userId) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized"
+    })
+  }
+  const userId = req.user.userId;
 
   try {
-    const profile = await getGithubProfile(githubId);
-    return res.json(profile);
+    const profile = await getGithubProfile(userId);
+    return res.status(200).json({
+      success: true,
+      profile
+    });
   } catch (error) {
     return next(new AppErrors("Failed to fetch github user profile", 500));
   }

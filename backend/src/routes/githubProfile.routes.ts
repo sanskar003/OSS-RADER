@@ -1,9 +1,9 @@
 import { Router } from "express"
 import { githubProfileController } from "../controllers/githubProfile.controller";
-import { validateAccessToken } from "../middleware/validateAccessToken";
+import { validateJwt } from "../middleware/validateJwt";
 
 let router = Router();
 
-router.post("/profile", validateAccessToken, githubProfileController)
+router.get("/profile", validateJwt, githubProfileController)
 
 export default router

@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { githubUserRepoController } from "../controllers/githubUserRepo.controller";
-import { validateAccessToken } from "../middleware/validateAccessToken";
+import { validateJwt } from "../middleware/validateJwt";
 
 const router = Router();
 
-router.post("/userrepo", validateAccessToken, githubUserRepoController)
+router.get("/userrepo", validateJwt, githubUserRepoController)
 
 export default router;

@@ -14,6 +14,6 @@ router.get("/github/callback", githubCallbackController)
 
 router.get("/me", validateJwt, meController)
 
-router.post("/logout", logoutController)
+router.post("/logout", validateJwt, logoutController)
 
 export default router;

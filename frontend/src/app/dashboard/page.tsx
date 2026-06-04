@@ -1,16 +1,15 @@
 "use client";
 
+import { useAuthStore } from "@/store/auth.store";
 import { useEffect, useState } from "react";
 
-type User = {
-  _id: string;
-  name: string;
-  email: string;
-  avatarUrl?: string;
-};
 
 export default function Dashboard() {
-  const [user, setUser] = useState<User | null>(null);
+
+  //ZUSTAND
+  const user = useAuthStore((state) => state.user)
+  const setUser = useAuthStore((state) => state.setUser)
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -38,8 +37,12 @@ export default function Dashboard() {
       }
     };
 
-    fetchMe();
-  }, []);
+    if (!user) {
+      fetchMe();
+    } else {
+      setLoading(false)
+    }
+  }, [user, setUser]);
 
   if (loading) {
     return <p className="p-6">Loading dashboard...</p>;

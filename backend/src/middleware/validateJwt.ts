@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+export interface JwtPayload {
+  userId: string;
+}
+
 export const validateJwt = (
   req: Request,
   res: Response,
@@ -8,22 +12,26 @@ export const validateJwt = (
 ) => {
   try {
     const token = req.cookies?.token;
-    console.log("Cookies:", req.cookies);
-console.log("Token:", req.cookies?.token);
 
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
     }
 
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    );
+    ) as JwtPayload;
 
-    (req as any).user = decoded;
+    req.user = decoded;
 
     next();
-  } catch {
-    return res.status(401).json({ message: "Invalid token" });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid token",
+    });
   }
 };

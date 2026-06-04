@@ -1,10 +1,13 @@
 "use client"
 
+import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
 
 export default function LogoutButton() {
   const router = useRouter();
 
+  //ZUSTAND
+  const logoutStore = useAuthStore((state) => state.logout)
   
   const logout = async () => {
     try {
@@ -15,6 +18,8 @@ export default function LogoutButton() {
           credentials: "include",
         }
       );
+
+      logoutStore()
 
       router.push("/");
     } catch (error) {

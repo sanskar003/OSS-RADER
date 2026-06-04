@@ -2,9 +2,9 @@ import axios from "axios";
 import { User } from "../models/User.model";
 import { decryptToken } from "../config/crypto";
 
-export const getGithubUserRepo = async (githubId: number) => {
+export const getGithubUserRepo = async (userId: string) => {
 
-  const user = await User.findOne({ githubId });
+  const user = await User.findById(userId);
   if(!user) throw new Error("User not found");
 
   const accessToken = await decryptToken(user.cipher, user.nonce);
