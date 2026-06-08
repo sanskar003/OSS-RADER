@@ -4,10 +4,11 @@ export const logoutController = (
     req: Request,
     res: Response
 ) => {
+    console.log("Logout controller called");
     res.clearCookie("token", {
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "none"
     });
 
     return res.status(200).json({

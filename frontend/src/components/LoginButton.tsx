@@ -1,5 +1,5 @@
 "use client";
-
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 export default function LoginButton() {
   const login = () => {
     window.location.href = "https://stunning-sniffle-x5pv49rgq765c6w56-5000.app.github.dev/api/auth/github";

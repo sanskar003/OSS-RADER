@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
 
+
 export default function LogoutButton() {
   const router = useRouter();
 
@@ -22,6 +23,7 @@ export default function LogoutButton() {
       logoutStore()
 
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
     }
