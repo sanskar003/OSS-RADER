@@ -8,9 +8,15 @@ export const trendingRepoController = async (
   next: NextFunction,
 ) => {
   try {
-    const respose = await getTrendingRepo();
-    return res.json(respose);
+    const repos = await getTrendingRepo();
+
+    return res.status(200).json({
+      success: true,
+      repos,
+    });
   } catch (error) {
-    return next(new AppErrors("Failed to fetch treding repo", 502));
+    return next(
+      new AppErrors("Failed to fetch trending repos", 502)
+    );
   }
 };

@@ -13,7 +13,7 @@ export default function LogoutButton() {
   const logout = async () => {
     try {
       await fetch(
-        "https://stunning-sniffle-x5pv49rgq765c6w56-5000.app.github.dev/api/auth/logout",
+        "https://bookish-train-v6rq5gpj7xr93x7g6-5000.app.github.dev/api/auth/logout",
         {
           method: "POST",
           credentials: "include",

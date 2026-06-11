@@ -20,13 +20,19 @@ export const getGithubUserRepo = async (userId: string) => {
   return userrepo.map((repo: any) => ({
     name: repo.name,
     full_name: repo.full_name,
-    html_url: repo.html_url,
     description: repo.description,
+    
+    language: repo.language,
+    topics: repo.topics || [],
+    
     stargazers_count: repo.stargazers_count,
     forks_count: repo.forks_count,
-    language: repo.language,
+    open_issues_count: repo.open_issues_count,
+    
+    html_url: repo.html_url,
     languages_url: repo.languages_url,
     visibility: repo.visibility,
+
     updated_at: repo.updated_at,
   }));
 };

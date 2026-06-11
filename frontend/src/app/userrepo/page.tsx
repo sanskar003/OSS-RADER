@@ -44,6 +44,23 @@ export default function Userrepo() {
               {repo.description || "No description"}
             </p>
 
+            {repo.topics?.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {repo.topics.map((topic) => (
+                  <span
+                    key={topic}
+                    className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full"
+                  >
+                    {topic}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-gray-400 mt-2">
+                No topics available
+              </p>
+            )}
+
             <div className="flex gap-4 mt-3 text-sm text-gray-500">
               <span>⭐ {repo.stargazers_count}</span>
               <span>🍴 {repo.forks_count}</span>

@@ -3,9 +3,11 @@
   import dotenv from "dotenv";
   import cookieParser from "cookie-parser"
   import trendingRoute from "./routes/trendingRepo.routes"
+  import repoRoute from "./routes/repo.routes"
   import githubProfileRoute from "./routes/githubProfile.routes"
   import githubUserRepoRoute from "./routes/githubUserRepo.routes"
   import githubTopLanguageRoute from "./routes/githubTopLanguage.routes"
+  import githubStarredRoute from "./routes/githubStarred.routes"
   import authGithub from "./routes/auth.routes"
   import { errorHandler } from "./middleware/errorHandler";
   import { connectDb } from "./config/db";
@@ -18,7 +20,7 @@
 
   app.use(cookieParser())
   app.use(express.json())
-  app.use(cors({origin: "https://stunning-sniffle-x5pv49rgq765c6w56-3000.app.github.dev", credentials: true }))
+  app.use(cors({origin: "https://bookish-train-v6rq5gpj7xr93x7g6-3000.app.github.dev", credentials: true }))
 
   //HOME PAGE
   app.get("/", (req: Request, res: Response) => {
@@ -26,15 +28,17 @@
   });
 
   //PUBLIC ROUTE NO AUTH REQUIRED
-  app.use("/api/project", trendingRoute)
+  app.use("/api", repoRoute)
 
   //PRIVATE ROUTE AUTH REQUIRED
   app.use("/api/project", githubProfileRoute)
   app.use("/api/project", githubUserRepoRoute)
   app.use("/api/project", githubTopLanguageRoute)
+  app.use("/api/project", githubStarredRoute)
 
   //AUTH ROUTE
   app.use("/api/auth", authGithub)
+  
   // ERROR HANDLER MIDDLEWARE
   app.use(errorHandler)
 
