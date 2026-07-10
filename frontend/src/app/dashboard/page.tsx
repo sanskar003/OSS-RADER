@@ -1,5 +1,6 @@
 "use client";
 
+import TopLanguagesChart from "@/components/TopLanguagesChart";
 import { useGithubProfile } from "@/hooks/useGithubProfile";
 import { useGithubRepo } from "@/hooks/useGithubRepo";
 import { useGithubTopLanguage } from "@/hooks/useGithubTopLanguage";
@@ -73,14 +74,16 @@ export default function Dashboard() {
       {/* ========================= */}
       {/* WELCOME */}
       {/* ========================= */}
-       {(profile.stats?.topics || []).map((topic: string) => (
+      {/* {(profile.stats?.topics || []).map((topic: string) => (
                 <span
                     key={topic}
                     className="px-2 py-1 bg-blue-100 rounded-md"
                 >
                     {topic}
                 </span>
-            ))}
+            ))} */}
+
+
 
       <section className="bg-white rounded-lg shadow p-6">
         <div className="flex items-center gap-4">
@@ -147,26 +150,9 @@ export default function Dashboard() {
       {/* ========================= */}
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Top Languages
-        </h2>
-
-        <div className="bg-white rounded-lg shadow p-4 space-y-2">
-          <p>
-            <strong>Most Used:</strong>{" "}
-            {languages.topLanguage}
-          </p>
-
-          {languages.languages.map((lang) => (
-            <div
-              key={lang.language}
-              className="flex justify-between border-b py-2"
-            >
-              <span>{lang.language}</span>
-              
-            </div>
-          ))}
-        </div>
+        <TopLanguagesChart
+          languages={languages.languages}
+        />
       </section>
 
       {/* ========================= */}
@@ -239,38 +225,6 @@ export default function Dashboard() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ========================= */}
-      {/* EXTRA INSIGHTS */}
-      {/* ========================= */}
-
-      <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Insights
-        </h2>
-
-        <div className="bg-white rounded-lg shadow p-4 space-y-2">
-          <p>
-            🚀 Most Used Language:
-            <strong> {languages.topLanguage}</strong>
-          </p>
-
-          <p>
-            ⭐ Total Stars:
-            <strong> {totalStars}</strong>
-          </p>
-
-          <p>
-            🍴 Total Forks:
-            <strong> {totalForks}</strong>
-          </p>
-
-          <p>
-            📦 Total Repositories:
-            <strong> {repos.length}</strong>
-          </p>
         </div>
       </section>
     </main>

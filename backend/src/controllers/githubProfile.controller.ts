@@ -10,14 +10,13 @@ export const githubProfileController = async (
 
   
   try {
-    const userId = req.user.userId;
-  
     if (!req.user?.userId) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized"
       })
     }
+    const userId = req.user.userId;
 
     const profile = await getGithubProfile(userId);
     return res.status(200).json({
