@@ -7,7 +7,8 @@ export const useLogout = () => {
 
     return useMutation({
         mutationFn: async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+            // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+            const response = await fetch("https://bookish-train-v6rq5gpj7xr93x7g6-5000.app.github.dev/api/auth/logout", {
                 method: "POST",
                 credentials: "include"
             });

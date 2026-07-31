@@ -1,7 +1,7 @@
 "use client"
 
 import { useGithubProfile } from "@/hooks/useGithubProfile";
-
+import LogoutButton from "@/components/LogoutButton";
 
 export default function Profile() {
     const { data, isLoading, error } = useGithubProfile()
@@ -13,6 +13,7 @@ export default function Profile() {
     return (
         <div className="p-6 max-w-xl mx-auto space-y-4">
             {/* HEADER */}
+            <LogoutButton />
             <div className="flex items-center gap-4">
                 <img
                     src={data.identity.avatar}

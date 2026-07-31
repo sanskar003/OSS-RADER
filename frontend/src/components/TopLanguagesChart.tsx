@@ -37,7 +37,7 @@ export default function TopLanguagesChart({ languages }: Props) {
   return (
     <ChartContainer
       config={chartConfig}
-      className="h-[300px] w-1/2 rounded-xl border p-2"
+      className="font-sans font-semibold h-[300px] min-w-1/2 rounded-xl border p-2"
     >
       <BarChart
         data={chartData}
@@ -65,9 +65,9 @@ export default function TopLanguagesChart({ languages }: Props) {
           barSize={40}
           animationDuration={800}>
           <LabelList
-            fill="white"
+            fill="black"
             dataKey="percentage"
-            position="outside"
+            position="right"
             formatter={(value) => `${value}%`}
           />
         </Bar>

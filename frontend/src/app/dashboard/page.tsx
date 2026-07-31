@@ -1,41 +1,25 @@
 "use client";
 
+import QuickStatsChart from "@/components/QuickStatsChart";
 import TopLanguagesChart from "@/components/TopLanguagesChart";
 import { useGithubProfile } from "@/hooks/useGithubProfile";
 import { useGithubRepo } from "@/hooks/useGithubRepo";
 import { useGithubTopLanguage } from "@/hooks/useGithubTopLanguage";
+import { Star, GitFork, Code2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function Dashboard() {
-  const {
-    data: profile,
-    isLoading: profileLoading,
-    error: profileError,
-  } = useGithubProfile();
+  const { data: profile, isLoading: profileLoading, error: profileError } = useGithubProfile();
 
-  const {
-    data: repos,
-    isLoading: repoLoading,
-    error: repoError,
-  } = useGithubRepo();
+  const { data: repos, isLoading: repoLoading, error: repoError } = useGithubRepo();
 
-  const {
-    data: languages,
-    isLoading: languageLoading,
-    error: languageError,
-  } = useGithubTopLanguage();
+  const { data: languages, isLoading: languageLoading, error: languageError } = useGithubTopLanguage();
 
   if (profileLoading || repoLoading || languageLoading) {
     return <p className="p-6">Loading dashboard...</p>;
   }
 
-  if (
-    profileError ||
-    repoError ||
-    languageError ||
-    !profile ||
-    !repos ||
-    !languages
-  ) {
+  if (profileError || repoError || languageError || !profile || !repos || !languages) {
     return (
       <p className="p-6 text-red-500">
         Failed to load dashboard
@@ -74,18 +58,12 @@ export default function Dashboard() {
       {/* ========================= */}
       {/* WELCOME */}
       {/* ========================= */}
-      {/* {(profile.stats?.topics || []).map((topic: string) => (
-                <span
-                    key={topic}
-                    className="px-2 py-1 bg-blue-100 rounded-md"
-                >
-                    {topic}
-                </span>
-            ))} */}
 
+      {/* ========================= */}
+      {/* PROFILE */}
+      {/* ========================= */}
 
-
-      <section className="bg-white rounded-lg shadow p-6">
+      <section className="bg-white rounded-xl shadow p-6 mb-6">
         <div className="flex items-center gap-4">
           <img
             src={profile.identity.avatar}
@@ -94,11 +72,11 @@ export default function Dashboard() {
           />
 
           <div>
-            <h1 className="text-2xl font-bold">
-              Welcome back, {profile.identity.name} 👋
+            <h1 className="font-bricolage flex gap-2 text-2xl font-semibold">
+              <span className="font-normal">Welcome back,</span> {profile.identity.name} <Sparkles color="gold"/>
             </h1>
 
-            <p className="text-gray-500">
+            <p className="font-sans text-gray-500">
               @{profile.identity.username}
             </p>
           </div>
@@ -106,98 +84,74 @@ export default function Dashboard() {
       </section>
 
       {/* ========================= */}
-      {/* QUICK STATS */}
+      {/* DASHBOARD */}
       {/* ========================= */}
 
-      <section>
-        <h2 className="text-xl font-semibold mb-4">
-          Quick Stats
-        </h2>
+      <section className="grid grid-cols-1 lg:grid-cols-4 gap-6">
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <p className="text-gray-500">Followers</p>
-            <p className="text-2xl font-bold">
-              {profile.stats.followers}
-            </p>
-          </div>
+        {/* Left Side */}
+        <div className="lg:col-span-2 space-y-6">
 
-          <div className="bg-white p-4 rounded-lg shadow">
-            <p className="text-gray-500">Following</p>
-            <p className="text-2xl font-bold">
-              {profile.stats.following}
-            </p>
-          </div>
+          {/* Quick Stats */}
+          <QuickStatsChart
+            profile={profile}
+            totalStars={totalStars}
+          />
 
-          <div className="bg-white p-4 rounded-lg shadow">
-            <p className="text-gray-500">Repositories</p>
-            <p className="text-2xl font-bold">
-              {profile.stats.publicRepos}
-            </p>
-          </div>
+          {/* Most Starred Repository */}
+          {mostStarredRepo && (
+            <div className="bg-white rounded-xl shadow p-6">
+              <h2 className="font-bricolage text-xl font-semibold mb-4">
+                Most Popular Repository
+              </h2>
 
-          <div className="bg-white p-4 rounded-lg shadow">
-            <p className="text-gray-500">Total Stars</p>
-            <p className="text-2xl font-bold">
-              {totalStars}
-            </p>
-          </div>
+              <h3 className="font-sans text-lg font-bold">
+                {mostStarredRepo.name}
+              </h3>
+
+              <p className="font-sans text-gray-500 mt-2">
+                {mostStarredRepo.description || "No description"}
+              </p>
+
+              <div className="font-mono flex flex-wrap gap-5 mt-4 text-sm font-medium">
+                <span className="flex gap-2 border rounded-full px-2 py-1"><Star size={20} /> {mostStarredRepo.stargazers_count} </span>
+                <span className="flex gap-2 border rounded-full px-2 py-1"><GitFork size={20} /> {mostStarredRepo.forks_count}</span>
+                <span className="flex gap-2 border rounded-full px-2 py-1"><Code2 size={20} /> {mostStarredRepo.language}</span>
+              </div>
+            </div>
+          )}
+
         </div>
-      </section>
 
-      {/* ========================= */}
-      {/* TOP LANGUAGES */}
-      {/* ========================= */}
-
-      <section>
-        <TopLanguagesChart
-          languages={languages.languages}
-        />
-      </section>
-
-      {/* ========================= */}
-      {/* MOST STARRED REPO */}
-      {/* ========================= */}
-
-      {mostStarredRepo && (
-        <section>
-          <h2 className="text-xl font-semibold mb-4">
-            Most Popular Repository
+        {/* Right Side */}
+        <div className="bg-white border lg:col-span-2 bg-white rounded-xl shadow p-6 mb-6">
+          <h2 className="font-bricolage text-xl font-semibold mb-6">
+            Top Languages
           </h2>
 
-          <div className="bg-white rounded-lg shadow p-4">
-            <h3 className="font-bold text-lg">
-              {mostStarredRepo.name}
-            </h3>
+          <TopLanguagesChart
+            languages={languages.languages}
+          />
+        </div>
 
-            <p className="text-gray-500">
-              {mostStarredRepo.description ||
-                "No description"}
-            </p>
+      </section>
 
-            <div className="flex gap-4 mt-3">
-              <span>
-                ⭐ {mostStarredRepo.stargazers_count}
-              </span>
+      {/* 
 
-              <span>
-                🍴 {mostStarredRepo.forks_count}
-              </span>
+      <section>
 
-              <span>
-                💻 {mostStarredRepo.language}
-              </span>
-            </div>
-          </div>
-        </section>
-      )}
+      </section> */}
+
+
+
+
 
       {/* ========================= */}
       {/* RECENT REPOS */}
       {/* ========================= */}
 
       <section>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="font-bricolage text-xl font-semibold mb-4">
           Recently Updated Repositories
         </h2>
 
@@ -205,7 +159,7 @@ export default function Dashboard() {
           {recentRepos.map((repo) => (
             <div
               key={repo.full_name}
-              className="bg-white rounded-lg shadow p-4"
+              className="font-sans bg-white rounded-lg shadow p-4"
             >
               <h3 className="font-semibold">
                 {repo.name}
@@ -216,12 +170,10 @@ export default function Dashboard() {
                   "No description available"}
               </p>
 
-              <div className="flex gap-4 mt-2 text-sm">
-                <span>⭐ {repo.stargazers_count}</span>
-
-                <span>🍴 {repo.forks_count}</span>
-
-                <span>{repo.language}</span>
+              <div className="font-mono flex gap-4 mt-2 text-sm">
+                <span className="flex gap-2 border rounded-full px-2 py-1"><Star size={20} />  {repo.stargazers_count}</span>
+                <span className="flex gap-2 border rounded-full px-2 py-1"><GitFork size={20} />  {repo.forks_count}</span>
+                <span className="flex gap-2 border rounded-full px-2 py-1"><Code2 size={20} /> {repo.language}</span>
               </div>
             </div>
           ))}

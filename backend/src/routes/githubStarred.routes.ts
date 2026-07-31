@@ -7,6 +7,6 @@ const router = Router();
 
 router.get("/starred", validateJwt, githubStarredController)
 
-router.get("/starred/sync", validateJwt, githubStarredSyncController)
+router.post("/starred/sync", validateJwt, githubStarredSyncController)
 
 export default router;

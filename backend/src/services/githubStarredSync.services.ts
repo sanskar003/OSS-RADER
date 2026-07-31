@@ -1,6 +1,6 @@
 import axios from "axios";
 import { decryptToken } from "../config/crypto";
-import { User } from "../models/User.model"
+import { User } from "../models/User.model";
 import { Starred } from "../models/Starred.model";
 
 export const getGithubStarredSync = async (userId: number) => {
@@ -18,46 +18,61 @@ export const getGithubStarredSync = async (userId: number) => {
         },
     })
 
-    const repos = response.data;
+    const starredRepos = response.data
+    
+    const savedRepos = await Promise.all(
+    starredRepos.map(async (repo: any) => {
 
-    //TRANSFORM + UPSERT
-    const bulkOps = repos.map((repo: any) => ({
-        updateOne: {
-            filter: {
-                userId: user._id,
-                repoId: repo.id,
-            },
-            update: {
-                $set: {
-                    userId: user._id,
-                    repoId: repo.id,
+      // optional: fetch languages
+      const languagesResponse = await axios.get(
+        repo.languages_url,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
-                    name: repo.name,
-                    fullName: repo.full_name,
-                    description: repo.description,
 
-                    stars: repo.stargazers_count,
-                    forks: repo.forks_count,
+      return Starred.findOneAndUpdate(
+        // {
+        //   userId,
+        //   repoId: repo.id,
+        // },
 
-                    language: repo.language,
-                    languages: {},
+        {
+          // userId,
 
-                    isPrivate: repo.private,
-                    htmlUrl: repo.html_url,
+          repoId: repo.id,
 
-                    pushedAt: repo.pushed_at,
-                },
-            },
-            upsert: true,
+          name: repo.name,
+
+          fullName: repo.full_name,
+
+          description: repo.description,
+
+          stars: repo.stargazers_count,
+
+          forks: repo.forks_count,
+
+          language: repo.language,
+
+          languages: languagesResponse.data,
+
+          isPrivate: repo.private,
+
+          htmlUrl: repo.html_url,
+
+          pushedAt: repo.pushed_at
+            ? new Date(repo.pushed_at)
+            : undefined,
         },
-    }));
 
-    //WRITE TO DB
-    if (bulkOps.length) {
-        await Starred.bulkWrite(bulkOps);
-    }
-
-    //RETURN FROM DB
-    return await Starred.find({ userId: user._id }).lean();
-
+        {
+          upsert: true,
+          new: true,
+        }
+      );
+    })
+  );
 }
