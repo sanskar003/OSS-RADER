@@ -22,6 +22,7 @@ export default function LogoutButton() {
 
   return (
     <button
+      className="bg-rose-400 px-2 py-1 rounded-full hover:bg-rose-300 transition-all duration-300 cursor-pointer"
       onClick={logout}
       disabled={logoutMutation.isPending}
     >

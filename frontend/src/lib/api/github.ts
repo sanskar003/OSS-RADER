@@ -3,6 +3,8 @@ import { GithubRepo } from "@/types/GithubRepo.types";
 import { GithubTopLanguageResponse } from "@/types/GithubTopLanguage.types";
 import { RepoQuery } from "@/types/RepoQuery.types";
 
+
+
 //GITHUB PROFILE
 export const fetchGithubProfile = async (): Promise<GithubProfile> => {
   const res = await fetch(
