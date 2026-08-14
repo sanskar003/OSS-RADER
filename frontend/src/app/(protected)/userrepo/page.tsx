@@ -2,12 +2,12 @@
 
 import { useGithubRepo } from "@/hooks/useGithubRepo";
 import { Star, GitFork, Code2 } from "lucide-react";
-
+import UserrepoSkeleton from "@/components/skeletons/UserrepoSkeleton"
 
 export default function Userrepo() {
   const { data, isLoading, error } = useGithubRepo();
 
-  if (isLoading) return <p className="text-3xl">Loading...</p>;
+  if (isLoading) return <UserrepoSkeleton />;
 
   if (error || !data)
     return <p className="text-red-500">Failed to load Repos</p>;

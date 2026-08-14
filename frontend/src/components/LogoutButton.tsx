@@ -1,6 +1,7 @@
 "use client"
 
 import { useLogout } from "@/hooks/useLogout";
+import { useAuthStore } from "@/store/auth.store";
 import { useRouter } from "next/navigation";
 
 
@@ -8,13 +9,14 @@ export default function LogoutButton() {
   const router = useRouter();
 
   const logoutMutation = useLogout()
+  const logoutUser = useAuthStore((state) => state.logout)
 
   const logout = async () => {
     try {
       await logoutMutation.mutateAsync();
 
-      router.push("/");
-      router.refresh();
+      logoutUser()
+      router.replace("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }

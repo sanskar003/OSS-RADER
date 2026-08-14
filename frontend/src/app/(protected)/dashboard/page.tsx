@@ -1,6 +1,7 @@
 "use client";
 
 import QuickStatsChart from "@/components/QuickStatsChart";
+import DashboardSkeleton from "@/components/skeletons/DashboardSkeleton";
 import TopLanguagesChart from "@/components/TopLanguagesChart";
 import { useGithubProfile } from "@/hooks/useGithubProfile";
 import { useGithubRepo } from "@/hooks/useGithubRepo";
@@ -16,7 +17,7 @@ export default function Dashboard() {
   const { data: languages, isLoading: languageLoading, error: languageError } = useGithubTopLanguage();
 
   if (profileLoading || repoLoading || languageLoading) {
-    return <p className="p-6">Loading dashboard...</p>;
+    return <DashboardSkeleton/>;
   }
 
   if (profileError || repoError || languageError || !profile || !repos || !languages) {

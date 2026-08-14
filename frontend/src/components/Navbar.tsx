@@ -47,8 +47,8 @@ export default function Navbar() {
 
   const navbarWidth = open
     ? user
-      ? "w-[460px]"
-      : "w-[220px]"
+      ? "w-[470px]"
+      : "w-[230px]"
     : "w-16";
 
 
@@ -84,15 +84,15 @@ export default function Navbar() {
           `}
         >
 
-          <div className="font-sans flex gap-5 text-white items-center">
+          <div className="font-sans flex gap-2 text-white items-center">
 
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="
-                  hover:text-black
-                  transition-all duration-300
+                  hover:bg-white hover:text-emerald-500
+                  transition-all duration-300  py-1 px-2 rounded-2xl
                 "
               >
                 {link.label}
@@ -104,19 +104,19 @@ export default function Navbar() {
 
               <Link
                 href="/profile"
-                className="flex items-center gap-2 group"
+                className="flex items-center gap-2 group  hover:bg-white py-1 px-1 rounded-full"
               >
 
                 {user.avatarUrl && (
                   <img
                     src={user.avatarUrl}
                     alt={user.name ?? "Profile"}
-                    className=" w-6 h-6 rounded-full border border-white/20 group-hover:border-black transition-all"
+                    className=" w-6 h-6 rounded-full transition-all duration-300"
                   />
                 )}
 
                 <span
-                  className=" text-sm group-hover:text-black transition-all max-w-[100px] truncate"
+                  className=" text-sm group-hover:text-emerald-500 transition-all max-w-[100px] truncate"
                 >
                   {user.name ?? user.login ?? "Profile"}
                 </span>
@@ -125,13 +125,13 @@ export default function Navbar() {
 
             ) : (
 
-              <div className="flex gap-3 items-center text-sm">
+              <div className="flex gap-3 items-center">
 
                 <Link
                   href="/login"
                   className="
-                    hover:text-black
-                    transition-all
+                   hover:bg-white hover:text-emerald-500
+                  transition-all duration-300  py-1 px-2 rounded-2xl
                   "
                 >
                   Login
