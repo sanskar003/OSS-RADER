@@ -2,8 +2,9 @@ import axios from "axios";
 import { decryptToken } from "../config/crypto";
 import { User } from "../models/User.model";
 import { Starred } from "../models/Starred.model";
+import mongoose from "mongoose";
 
-export const getGithubStarredSync = async (userId: number) => {
+export const getGithubStarredSync = async (userId: string) => {
 
     const user = await User.findById(userId)
 
@@ -35,13 +36,13 @@ export const getGithubStarredSync = async (userId: number) => {
 
 
       return Starred.findOneAndUpdate(
-        // {
-        //   userId,
-        //   repoId: repo.id,
-        // },
+        {
+          userId,
+          repoId: repo.id,
+        },
 
         {
-          // userId,
+          userId,
 
           repoId: repo.id,
 

@@ -8,6 +8,7 @@
   import githubUserRepoRoute from "./routes/githubUserRepo.routes"
   import githubTopLanguageRoute from "./routes/githubTopLanguage.routes"
   import githubStarredRoute from "./routes/githubStarred.routes"
+  import githubRecommendationRoute from "./routes/githubRecommendation.routes"
   import authGithub from "./routes/auth.routes"
   import { errorHandler } from "./middleware/errorHandler";
   import { connectDb } from "./config/db";
@@ -35,6 +36,7 @@
   app.use("/api/project", githubUserRepoRoute)
   app.use("/api/project", githubTopLanguageRoute)
   app.use("/api/project", githubStarredRoute)
+  app.use("/api/project", githubRecommendationRoute)
 
   //AUTH ROUTE
   app.use("/api/auth", authGithub)

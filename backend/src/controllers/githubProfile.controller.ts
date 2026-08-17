@@ -8,7 +8,6 @@ export const githubProfileController = async (
   next: NextFunction,
 ) => {
 
-  
   try {
     if (!req.user?.userId) {
       return res.status(401).json({

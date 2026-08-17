@@ -34,7 +34,7 @@ export const getGithubProfile = async (userId: string) => {
             type: data.type,
             hireable: data.hireable ?? false,
         },
-
+        
         stats: {
             followers: data.followers,
             following: data.following,

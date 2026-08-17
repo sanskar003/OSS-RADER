@@ -3,7 +3,7 @@ import { decryptToken } from "../config/crypto";
 import { User } from "../models/User.model"
 import { Starred } from "../models/Starred.model";
 
-export const getGithubStarred= async (userId: number) => {
+export const getGithubStarred = async (userId: string) => {
 
     const user = await User.findById(userId)
 
@@ -15,7 +15,7 @@ export const getGithubStarred= async (userId: number) => {
         headers: {
             Authorization: `Bearer ${accessToken}`,
             Accept: "application/vnd.github+json",
-        },
+        }
     })
 
     const repos = response.data;
@@ -41,6 +41,7 @@ export const getGithubStarred= async (userId: number) => {
 
                     language: repo.language,
                     languages: {},
+                    topics: repo.topics || [],
 
                     isPrivate: repo.private,
                     htmlUrl: repo.html_url,

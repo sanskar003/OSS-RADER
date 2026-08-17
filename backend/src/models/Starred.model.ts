@@ -13,6 +13,7 @@ export interface IStarred extends Document {
 
     language?: string;
     languages?: Record<string, number>;
+    topics?: string[];
 
     isPrivate: boolean;
     htmlUrl: string;
@@ -60,6 +61,11 @@ const StarredSchema = new Schema<IStarred>(
         languages: {
             type: Object,
             default: {},
+        },
+
+        topics: {
+            type: [String],
+            default: [],
         },
 
         isPrivate: {
