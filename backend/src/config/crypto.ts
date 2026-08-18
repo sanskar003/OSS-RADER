@@ -12,6 +12,10 @@ if (!keyHex) {
 
 const key = Buffer.from(keyHex, "hex");
 
+if (key.length !== 32) {
+  throw new Error("ENCRYPTION_KEY must be exactly 32 bytes");
+}
+
 export async function encryptToken(token: string) {
   await sodium.ready;
 

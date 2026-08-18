@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Starred } from "../models/Starred.model";
 import { getGithubTopLanguage } from "./githubTopLanguage.services";
+import { getGithubAccesstoken } from "./getGithubAccessToken.services";
 
 export const getGithubRecommendation = async (userId: string) => {
   // Get user's top languages
   const topLanguages = await getGithubTopLanguage(userId);
+  const githubAccessToken = await getGithubAccesstoken(userId);
 
   if (!topLanguages.length) {
     return [];
