@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute h-80 w-80 animate-spin rounded-full border-2 border-emerald-500/40 blur-sm" />
+      <div className="absolute h-80 w-80 animate-spin rounded-full border-2 border-emerald-500 blur-sm" />
       <div className="absolute h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
 
       {/* Hero Content */}

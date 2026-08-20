@@ -1,4 +1,5 @@
 import { GithubProfile } from "@/types/GithubProfile.types";
+import { GithubRecommendation } from "@/types/GithubRecommendation.types";
 import { GithubRepo } from "@/types/GithubRepo.types";
 import { GithubTopLanguageResponse } from "@/types/GithubTopLanguage.types";
 import { RepoQuery } from "@/types/RepoQuery.types";
@@ -61,6 +62,24 @@ export const fetchGithubTopLanguage = async (): Promise<GithubTopLanguageRespons
     languages: data.languages,
   };
 };
+
+//GITHUB RECOMMENDATION
+export const fetchGithubRecommendation = async (): Promise<GithubRecommendation[]> => {
+  const res = await fetch(
+    "https://bookish-train-v6rq5gpj7xr93x7g6-5000.app.github.dev/api/project/recommendations",
+    {
+      credentials: "include"
+    }
+  )
+
+  const data = await res.json();
+
+  if (!data.success) {
+    throw new Error(data.message || "Failed to fetch recommendation");
+  }
+
+  return data.recommendation;
+}
 
 //REPOS
 export const fetchRepo = async (filters: RepoQuery) => {

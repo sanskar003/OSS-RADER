@@ -22,7 +22,14 @@ export const githubProfileController = async (
       success: true,
       profile
     });
-  } catch (error) {
-    return next(new AppErrors("Failed to fetch github user profile", 500));
-  }
+  }catch (error: any) {
+    console.error("GitHub profile error:", error);
+
+    return next(
+        new AppErrors(
+            error.message || "Failed to fetch github profile",
+            500
+        )
+    );
+}
 };
